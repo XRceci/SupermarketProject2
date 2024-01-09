@@ -93,9 +93,17 @@ public class TaskManager : MonoBehaviour
         return number;
     }
 
-    public void notifySelection()
+    public void notifySelection(bool rightObject)
     {
-        nextObject();
+        if (rightObject)
+        {
+            nextObject();
+        }
+        else
+        {
+            incrementErrors();
+        }
+            
     }
 
     void nextObject()

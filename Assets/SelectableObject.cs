@@ -49,12 +49,12 @@ public class SelectableObject : MonoBehaviour
             {
                 this.GetComponent<MeshRenderer>().material = originalMaterial;
                 isSelected = true;
-                manager.notifySelection();
+                manager.notifySelection(true);
                 print("right stuff");
             }
             else
             {
-                manager.incrementErrors();
+                manager.notifySelection(false);
                 print("wrong stuff");
                 //play sound?
             }
