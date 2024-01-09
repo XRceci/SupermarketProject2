@@ -14,7 +14,7 @@ public class Arrow3D_single2 : MonoBehaviour {
     TaskManager manager;
     // Use this for initialization
     void Start () {
-        arrow3d_single_canvas = GameObject.FindGameObjectWithTag("3DArrow_single_canvas");
+        arrow3d_single_canvas = this.gameObject;// GameObject.FindGameObjectWithTag("3DArrow_single_canvas");
         locolPosition = new Vector3(0f, -0.15f, 0.5f);
 
         arrow3d = Instantiate(arrow3d_single_prefab, arrow3d_single_canvas.transform);
