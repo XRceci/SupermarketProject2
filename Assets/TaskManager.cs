@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class TaskManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class TaskManager : MonoBehaviour
     // Start is called before the first frame update
     public enum InteractionTYpe { Raycasting, Direct, MyTechnique};
 
+    public int userId = 0;
     public InteractionTYpe type = InteractionTYpe.Direct;
     public List<GameObject> objectsToBeSelected;
 
@@ -18,7 +20,6 @@ public class TaskManager : MonoBehaviour
     List<SelectableObject> taskObjects;
 
     public Material materialSelection;
-
 
     SelectableObject currentSelectableObject;
 
@@ -174,12 +175,38 @@ public class TaskManager : MonoBehaviour
 
     public void generateReport()
     {
-        string fileName = type.ToString() + ".csv";
-        string str = "task,time,precisionX,precisionY,precisionZ\n";
+        string fileName = userId+ ","+type.ToString() + ".csv";
+        string str = "timestamp,userId,interactionType,task,time,precisionX,precisionY,precisionZ\n";
         foreach(Tasklog tLog in logTasks)
         {
-            str += (tLog.Endtimestamp - tLog.Inittimestamp) + "," + tLog.numberErrors + "," + tLog.Precision.x + "," + 
+            str +=  Time.time + ","+ userId + ","+ type + "," + (tLog.Endtimestamp - tLog.Inittimestamp) + "," + tLog.numberErrors + "," + tLog.Precision.x + "," + 
                     tLog.Precision.y + "," + tLog.Precision.z + "\n";
+        }
+
+        str += "Total," + userId + "," + type + "," + (endTimestamp - startTimestamp) + "," + countErrors + "\n";
+
+        CreateNewDataFile(fileName, str);
+
+    }
+
+    private void CreateNewDataFile(string filename,string xontent)
+    {
+        //** N.B. use .persistentDataPath if running on Quest/device unlinked,
+        //**      else use .dataPath if Quest/device is linked/connected to machine via USB.
+        string path = Application.dataPath + "/" + filename;
+        //string path = Application.persistentDataPath + "/" + filename;
+
+        //** Create new file if it doesn't exist, if append to file to avoid overwritting data due to selection error from previous scene.
+        if (!File.Exists(path))
+        {
+            //var text = System.DateTime.Now + ",START\n";
+            File.WriteAllText(path, xontent);
+        }
+        else
+        {
+            //** Add data to file
+            //string content = System.DateTime.Now + ",File Already Exists\n";
+            File.AppendAllText(path, xontent);
         }
     }
 
