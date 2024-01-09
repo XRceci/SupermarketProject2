@@ -133,6 +133,7 @@ public class TaskManager : MonoBehaviour
             SelectableObject select = objectsToBeSelected[currentObject].GetComponent<SelectableObject>();
             select.deSelectObject();
             endTimestamp = Time.realtimeSinceStartup;
+            logTasks[currentObject].Endtimestamp = Time.realtimeSinceStartup;
             //c'est fini
         }
     }
