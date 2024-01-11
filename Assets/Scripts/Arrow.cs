@@ -10,10 +10,10 @@ public class Arrow : MonoBehaviour {
     private TaskManager taskManager;
 
 	void Update () {
-        SelectableObject currentSelectableObject = taskManager.getCurrentSelectableObject();
-        if (currentSelectableObject != null)
+        GameObject currentObjectToSelect = taskManager.GetCurrentObjectToSelect();
+        if (currentObjectToSelect != null)
         {
-            this.transform.LookAt(currentSelectableObject.transform.position);
+            this.transform.LookAt(currentObjectToSelect.transform.position);
         }
 	}
 }

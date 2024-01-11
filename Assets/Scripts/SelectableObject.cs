@@ -46,10 +46,13 @@ public class SelectableObject : MonoBehaviour
     public void SetAsSuccess()
     {
         this.GetComponent<MeshRenderer>().material = successMaterial;
+        StartCoroutine(DelayResetMaterial());
     }
 
-    public void SetAsDefault()
+    public IEnumerator DelayResetMaterial()
     {
+        // Reset to original material after 5 seconds
+        yield return new WaitForSeconds(5f);
         this.GetComponent<MeshRenderer>().material = defaultMaterial;
     }
 }

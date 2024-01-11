@@ -7,139 +7,80 @@ using UnityEngine;
 public enum INTERACTION_TYPE
 {
     RAYCASTING,
-    DIRECT,
     MY_TECHNIQUE
 }
 
 public class TaskManager : MonoBehaviour
 {
     public int userId = 0;
-    public INTERACTION_TYPE interactionType = INTERACTION_TYPE.DIRECT;
+    public INTERACTION_TYPE interactionType = INTERACTION_TYPE.RAYCASTING;
+    public List<GameObject> objectsToSelect;
 
-    public List<GameObject> objectsToBeSelected;
+    private int currentObjectIndex = 0;
 
+    // REVIEW ME
     List<Tasklog> logTasks = new List<Tasklog>();
-    List<SelectableObject> _selectableObjects;
-
-    int currentObject = 0;
-    List<SelectableObject> taskObjects;
-
-    public Material materialSelection;
-
-    SelectableObject currentSelectableObject;
-
     float startTimestamp = 0;
     float endTimestamp = 0;
     int numberOfObjects = 10;
-
-    int countErrors = 0;
+    int errorCount = 0;
     float totalTime = 0;
 
-    void Start()
+    private void Start()
     {
-        if (objectsToBeSelected != null)
-        {
-            if(objectsToBeSelected.Count > 0)
-            {
-                //objectsToBeSelected[0].GetComponent<SelectableObject>().HighlightObject();
-                startTimestamp = Time.realtimeSinceStartup;
-                logTasks.Add(new Tasklog(startTimestamp));
-            }
-        }
+        objectsToSelect[currentObjectIndex].GetComponent<SelectableObject>().SetAsTarget();
     }
 
-    public bool isCurrentSelectableObject(string objName)
+    public GameObject GetCurrentObjectToSelect()
     {
-        return true;   
+        return objectsToSelect[currentObjectIndex];
     }
 
-    public void incrementErrors()
+    public void OnSelectionEvent(SelectableObject selectedObject)
     {
-        countErrors++;
-        logTasks[currentObject].numberErrors++;
-    }
-    public SelectableObject getCurrentSelectableObject()
-    {
-        if(objectsToBeSelected != null)
+        SelectableObject selectedObjectScript = selectedObject.GetComponent<SelectableObject>();
+        SelectableObject objectToSelectScript = objectsToSelect[currentObjectIndex].GetComponent<SelectableObject>();
+        if (selectedObjectScript == null || selectedObjectScript.GetObjectName() != objectToSelectScript.GetObjectName())
         {
-            if(objectsToBeSelected.Count < currentObject)
-            {
-                return objectsToBeSelected[currentObject].GetComponent<SelectableObject>();
-            }
-        }
-        return null;
-    }
-
-    public void notifySelection(bool rightObject)
-    {
-        if (rightObject)
-        {
-            nextObject();
+            HandleSelectionError();
         }
         else
         {
-            incrementErrors();
+            objectToSelectScript.SetAsSuccess();
+            // TODO add log
+            BeginNextSelectionTask();
         }
-            
     }
 
-    void nextObject()
+    private void HandleSelectionError()
     {
-        if (currentObject + 1 < objectsToBeSelected.Count)
+        errorCount++;
+        // TODO add log
+    }
+
+    private void BeginNextSelectionTask()
+    {
+        if (currentObjectIndex + 1 < objectsToSelect.Count)
         {
-            SelectableObject select = objectsToBeSelected[currentObject].GetComponent<SelectableObject>();
-            //select.deSelectObject();
-            SelectableObject nextObject = objectsToBeSelected[currentObject+1].GetComponent<SelectableObject>();
-            //nextObject.HighlightObject();
-            logTasks[currentObject].Endtimestamp = Time.realtimeSinceStartup;
-            
-            currentObject++;
-            logTasks.Add(new Tasklog(Time.realtimeSinceStartup));
-            //
+            currentObjectIndex++;
+
+            SelectableObject objectToSelectScript = objectsToSelect[currentObjectIndex].GetComponent<SelectableObject>();
+            objectToSelectScript.SetAsTarget();
+
+            // TODO add log
         }
         else
         {
-            SelectableObject select = objectsToBeSelected[currentObject].GetComponent<SelectableObject>();
-            //select.deSelectObject();
-            endTimestamp = Time.realtimeSinceStartup;
-            logTasks[currentObject].Endtimestamp = Time.realtimeSinceStartup;
-            //c'est fini
-        }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            nextObject();
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            selectRightObject();
+            // TODO add log and handle end of study
         }
     }
 
-    void selectRightObject()
-    {
-        if(objectsToBeSelected != null)
-        {
-            if(objectsToBeSelected.Count > currentObject)
-            {
-                //objectsToBeSelected[currentObject].GetComponent<SelectableObject>().SelectObject();
-            }
-        }
-    }
 
-    void selectWrongObject()
-    {
-        if(objectsToBeSelected != null)
-        {
-            if(objectsToBeSelected.Count > (currentObject +1))
-            {
-                //objectsToBeSelected[currentObject].GetComponent<SelectableObject>().SelectObject();
-            }
-        }
-    }
+
+
+
+
+
 
     public void generateReport()
     {
@@ -151,7 +92,7 @@ public class TaskManager : MonoBehaviour
                     tLog.Precision.y + "," + tLog.Precision.z + "\n";
         }
 
-        str += "Total," + userId + "," + interactionType + "," + (endTimestamp - startTimestamp) + "," + countErrors + "\n";
+        str += "Total," + userId + "," + interactionType + "," + (endTimestamp - startTimestamp) + "," + errorCount + "\n";
 
         CreateNewDataFile(fileName, str);
 
@@ -176,9 +117,5 @@ public class TaskManager : MonoBehaviour
             //string content = System.DateTime.Now + ",File Already Exists\n";
             File.AppendAllText(path, xontent);
         }
-    }
-
-    void startTask()
-    {
     }
 }

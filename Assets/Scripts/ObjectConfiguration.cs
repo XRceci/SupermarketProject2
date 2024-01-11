@@ -12,7 +12,7 @@ public class ObjectConfiguration : MonoBehaviour
 
     private List<GameObject> selectableObjects;
 
-    private void Start()
+    private void Awake()
     {
         selectableObjects = new List<GameObject>();
         for (int i = 0; i < this.transform.childCount; i++)
