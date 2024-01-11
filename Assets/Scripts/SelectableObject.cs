@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SelectableObject : MonoBehaviour
 {
+    private string objectName = "undefined";
 
     public bool isSelected = false;
     public Material matSelection;
@@ -15,7 +16,7 @@ public class SelectableObject : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        manager = GameObject.Find("Models").GetComponent<TaskManager>();
+        manager = GameObject.Find("SelectableObjects").GetComponent<TaskManager>();
         try
         {
             originalMaterial = this.GetComponent<MeshRenderer>().material;
@@ -30,6 +31,16 @@ public class SelectableObject : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public string GetObjectName()
+    {
+        return objectName;
+    }
+
+    public void SetObjectName(string objectName)
+    {
+        this.objectName = objectName;
     }
 
     public void HighlightObject()

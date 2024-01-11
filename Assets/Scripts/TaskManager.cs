@@ -4,13 +4,18 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+public enum INTERACTION_TYPE
+{
+    RAYCASTING,
+    DIRECT,
+    MY_TECHNIQUE
+}
+
 public class TaskManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public enum InteractionTYpe { Raycasting, Direct, MyTechnique};
-
     public int userId = 0;
-    public InteractionTYpe type = InteractionTYpe.Direct;
+    public INTERACTION_TYPE interactionType = INTERACTION_TYPE.DIRECT;
+
     public List<GameObject> objectsToBeSelected;
 
     List<Tasklog> logTasks = new List<Tasklog>();
@@ -175,15 +180,15 @@ public class TaskManager : MonoBehaviour
 
     public void generateReport()
     {
-        string fileName = userId+ ","+type.ToString() + ".csv";
+        string fileName = userId+ ","+interactionType.ToString() + ".csv";
         string str = "timestamp,userId,interactionType,task,time,precisionX,precisionY,precisionZ\n";
         foreach(Tasklog tLog in logTasks)
         {
-            str +=  Time.time + ","+ userId + ","+ type + "," + (tLog.Endtimestamp - tLog.Inittimestamp) + "," + tLog.numberErrors + "," + tLog.Precision.x + "," + 
+            str +=  Time.time + ","+ userId + ","+ interactionType + "," + (tLog.Endtimestamp - tLog.Inittimestamp) + "," + tLog.numberErrors + "," + tLog.Precision.x + "," + 
                     tLog.Precision.y + "," + tLog.Precision.z + "\n";
         }
 
-        str += "Total," + userId + "," + type + "," + (endTimestamp - startTimestamp) + "," + countErrors + "\n";
+        str += "Total," + userId + "," + interactionType + "," + (endTimestamp - startTimestamp) + "," + countErrors + "\n";
 
         CreateNewDataFile(fileName, str);
 
