@@ -37,33 +37,11 @@ public class TaskManager : MonoBehaviour
 
     void Start()
     {
-        _selectableObjects = new List<SelectableObject>();
-        for(int i = 0; i < this.transform.childCount; i++)
-        {
-            if(transform.GetChild(i).GetComponent<MeshRenderer>() == null)
-            {
-                for(int j = 0; j < transform.GetChild(i).childCount; j++)
-                {
-
-                    SelectableObject tmp = transform.GetChild(i).GetChild(j).gameObject.AddComponent<SelectableObject>();
-                    BoxCollider boxC = tmp.gameObject.AddComponent<BoxCollider>();
-                    Rigidbody rigid = tmp.gameObject.AddComponent<Rigidbody>();
-                    rigid.isKinematic = true;
-                    rigid.useGravity = false;
-                    boxC.isTrigger = true;
-                    _selectableObjects.Add(tmp);
-                    tmp.name = "objSelected_" + generateID("objSelected");
-                    
-                    //generate Unique name to gameObject
-                }
-            }
-        }
-
         if (objectsToBeSelected != null)
         {
             if(objectsToBeSelected.Count > 0)
             {
-                objectsToBeSelected[0].GetComponent<SelectableObject>().HighlightObject();
+                //objectsToBeSelected[0].GetComponent<SelectableObject>().HighlightObject();
                 startTimestamp = Time.realtimeSinceStartup;
                 logTasks.Add(new Tasklog(startTimestamp));
             }
@@ -92,21 +70,6 @@ public class TaskManager : MonoBehaviour
         return null;
     }
 
-
-    public string generateID(string url_add)
-    {
-        long i = 1;
-
-        foreach (byte b in Guid.NewGuid().ToByteArray())
-        {
-            i *= ((int)b + 1);
-        }
-
-        string number = String.Format("{0:d9}", (DateTime.Now.Ticks / 10) % 1000000000);
-
-        return number;
-    }
-
     public void notifySelection(bool rightObject)
     {
         if (rightObject)
@@ -125,9 +88,9 @@ public class TaskManager : MonoBehaviour
         if (currentObject + 1 < objectsToBeSelected.Count)
         {
             SelectableObject select = objectsToBeSelected[currentObject].GetComponent<SelectableObject>();
-            select.deSelectObject();
+            //select.deSelectObject();
             SelectableObject nextObject = objectsToBeSelected[currentObject+1].GetComponent<SelectableObject>();
-            nextObject.HighlightObject();
+            //nextObject.HighlightObject();
             logTasks[currentObject].Endtimestamp = Time.realtimeSinceStartup;
             
             currentObject++;
@@ -137,7 +100,7 @@ public class TaskManager : MonoBehaviour
         else
         {
             SelectableObject select = objectsToBeSelected[currentObject].GetComponent<SelectableObject>();
-            select.deSelectObject();
+            //select.deSelectObject();
             endTimestamp = Time.realtimeSinceStartup;
             logTasks[currentObject].Endtimestamp = Time.realtimeSinceStartup;
             //c'est fini
@@ -162,7 +125,7 @@ public class TaskManager : MonoBehaviour
         {
             if(objectsToBeSelected.Count > currentObject)
             {
-                objectsToBeSelected[currentObject].GetComponent<SelectableObject>().SelectObject();
+                //objectsToBeSelected[currentObject].GetComponent<SelectableObject>().SelectObject();
             }
         }
     }
@@ -173,7 +136,7 @@ public class TaskManager : MonoBehaviour
         {
             if(objectsToBeSelected.Count > (currentObject +1))
             {
-                objectsToBeSelected[currentObject].GetComponent<SelectableObject>().SelectObject();
+                //objectsToBeSelected[currentObject].GetComponent<SelectableObject>().SelectObject();
             }
         }
     }

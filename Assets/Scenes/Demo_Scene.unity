@@ -52926,6 +52926,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5516476d852cf1947952f745891a9660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetMaterial: {fileID: 2100000, guid: 90fc1169d7c795d4da976a4a3c168100, type: 2}
+  successMaterial: {fileID: 2100000, guid: 9ffcab85c06308943b956e1c0b3db3ba, type: 2}
 --- !u!1001 &1119022828
 PrefabInstance:
   m_ObjectHideFlags: 0

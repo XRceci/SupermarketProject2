@@ -9,10 +9,6 @@ public class Arrow : MonoBehaviour {
     [SerializeField]
     private TaskManager taskManager;
 
-    void Start () {
-        // Needed?
-    }
-
 	void Update () {
         SelectableObject currentSelectableObject = taskManager.getCurrentSelectableObject();
         if (currentSelectableObject != null)

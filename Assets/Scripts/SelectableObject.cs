@@ -7,30 +7,15 @@ public class SelectableObject : MonoBehaviour
 {
     private string objectName = "undefined";
 
-    public bool isSelected = false;
-    public Material matSelection;
-    public Material originalMaterial;
+    private Material defaultMaterial;
+    // The material used to indicate to the user that this is the object to select
+    private Material targetMaterial;
+    // The material used to indicate to the user that this object was successfully selected
+    private Material successMaterial;
 
-    TaskManager manager;
-    
-    // Start is called before the first frame update
-    void Awake()
+    private void Start()
     {
-        manager = GameObject.Find("SelectableObjects").GetComponent<TaskManager>();
-        try
-        {
-            originalMaterial = this.GetComponent<MeshRenderer>().material;
-            matSelection = manager.materialSelection;
-        }
-        catch(Exception ex)
-        {
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        defaultMaterial = this.GetComponent<MeshRenderer>().material;
     }
 
     public string GetObjectName()
@@ -43,39 +28,28 @@ public class SelectableObject : MonoBehaviour
         this.objectName = objectName;
     }
 
-    public void HighlightObject()
+    public void SetTargetMaterial(Material material)
     {
-        if (matSelection)
-        {
-            this.GetComponent<MeshRenderer>().material = matSelection;
-            isSelected = true;
-        }
+        this.targetMaterial = material;
     }
 
-    public void SelectObject()
+    public void SetSuccessMaterial(Material material)
     {
-        if (matSelection)
-        {
-            if (manager.isCurrentSelectableObject(this.name))
-            {
-                this.GetComponent<MeshRenderer>().material = originalMaterial;
-                isSelected = true;
-                manager.notifySelection(true);
-                print("right stuff");
-            }
-            else
-            {
-                manager.notifySelection(false);
-                print("wrong stuff");
-                //play sound?
-            }
-            //manager.SendMessage("isSelectedObjectSelected", this.gameObject.name);
-        }
+        this.successMaterial = material;
     }
 
-    public void deSelectObject()
+    public void SetAsTarget()
     {
-        this.GetComponent<MeshRenderer>().material = originalMaterial;
-        isSelected = false;
+        this.GetComponent<MeshRenderer>().material = targetMaterial;
+    }
+
+    public void SetAsSuccess()
+    {
+        this.GetComponent<MeshRenderer>().material = successMaterial;
+    }
+
+    public void SetAsDefault()
+    {
+        this.GetComponent<MeshRenderer>().material = defaultMaterial;
     }
 }

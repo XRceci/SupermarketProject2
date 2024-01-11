@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class ObjectConfiguration : MonoBehaviour
 {
-    List<GameObject> selectableObjects;
+    [SerializeField]
+    private Material targetMaterial;
+
+    [SerializeField]
+    private Material successMaterial;
+
+    private List<GameObject> selectableObjects;
 
     private void Start()
     {
@@ -20,6 +26,8 @@ public class ObjectConfiguration : MonoBehaviour
                 // Add a SelectableObject script to the object
                 SelectableObject selectableObject = objectToConfigure.AddComponent<SelectableObject>();
                 selectableObject.SetObjectName("ObjectCategory_" + i.ToString() + "_Number_" + j.ToString());
+                selectableObject.SetTargetMaterial(targetMaterial);
+                selectableObject.SetSuccessMaterial(successMaterial);
 
                 // Add a BoxCollider to the object
                 BoxCollider boxCollider = objectToConfigure.AddComponent<BoxCollider>();
@@ -28,7 +36,6 @@ public class ObjectConfiguration : MonoBehaviour
                 // Add a kinematic RigidBody to the object
                 Rigidbody rigidbody = objectToConfigure.AddComponent<Rigidbody>();
                 rigidbody.isKinematic = true;
-                //rigidbody.useGravity = false;
             }
         }
     }
