@@ -3339,7 +3339,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop016
+      value: bottle1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_RootOrder
@@ -3393,6 +3393,11 @@ PrefabInstance:
 --- !u!4 &58564690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
+  m_PrefabInstance: {fileID: 58564689}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &58564691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
   m_PrefabInstance: {fileID: 58564689}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &64418219
@@ -11340,7 +11345,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop005
+      value: object2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
       propertyPath: m_RootOrder
@@ -11398,6 +11403,11 @@ PrefabInstance:
 --- !u!4 &251443578 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
+  m_PrefabInstance: {fileID: 251443577}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &251443579 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
   m_PrefabInstance: {fileID: 251443577}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &251824474
@@ -16392,7 +16402,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: d3c792b370e37f345a676b85bb201d1c, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop013
+      value: box2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d3c792b370e37f345a676b85bb201d1c, type: 3}
       propertyPath: m_RootOrder
@@ -16450,6 +16460,11 @@ PrefabInstance:
 --- !u!4 &375187579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d3c792b370e37f345a676b85bb201d1c, type: 3}
+  m_PrefabInstance: {fileID: 375187578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &375187580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: d3c792b370e37f345a676b85bb201d1c, type: 3}
   m_PrefabInstance: {fileID: 375187578}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &376472992
@@ -18452,7 +18467,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 66e6990856b91984686e6ff4afe18b57, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop003
+      value: milk
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 66e6990856b91984686e6ff4afe18b57, type: 3}
       propertyPath: m_RootOrder
@@ -18522,6 +18537,11 @@ PrefabInstance:
 --- !u!4 &428503086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 66e6990856b91984686e6ff4afe18b57, type: 3}
+  m_PrefabInstance: {fileID: 428503085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &428503087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 66e6990856b91984686e6ff4afe18b57, type: 3}
   m_PrefabInstance: {fileID: 428503085}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &429239274
@@ -29758,7 +29778,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop005
+      value: box3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
       propertyPath: m_RootOrder
@@ -29816,6 +29836,11 @@ PrefabInstance:
 --- !u!4 &660022195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
+  m_PrefabInstance: {fileID: 660022194}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &660022196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
   m_PrefabInstance: {fileID: 660022194}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &660409947
@@ -45793,7 +45818,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop005
+      value: object3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
       propertyPath: m_RootOrder
@@ -45851,6 +45876,11 @@ PrefabInstance:
 --- !u!4 &983108201 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
+  m_PrefabInstance: {fileID: 983108200}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &983108202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 5cb15bb5fc2298d44bc1570b1121643e, type: 3}
   m_PrefabInstance: {fileID: 983108200}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &983177340
@@ -48782,7 +48812,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 4be9d21030f4af147a94d9c12417752e, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop004
+      value: box
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4be9d21030f4af147a94d9c12417752e, type: 3}
       propertyPath: m_RootOrder
@@ -48852,6 +48882,11 @@ PrefabInstance:
 --- !u!4 &1055322917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 4be9d21030f4af147a94d9c12417752e, type: 3}
+  m_PrefabInstance: {fileID: 1055322916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1055322918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 4be9d21030f4af147a94d9c12417752e, type: 3}
   m_PrefabInstance: {fileID: 1055322916}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1057023261
@@ -51454,7 +51489,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 66e6990856b91984686e6ff4afe18b57, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop003
+      value: milk2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 66e6990856b91984686e6ff4afe18b57, type: 3}
       propertyPath: m_RootOrder
@@ -51524,6 +51559,11 @@ PrefabInstance:
 --- !u!4 &1095914207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 66e6990856b91984686e6ff4afe18b57, type: 3}
+  m_PrefabInstance: {fileID: 1095914206}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1095914208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 66e6990856b91984686e6ff4afe18b57, type: 3}
   m_PrefabInstance: {fileID: 1095914206}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1096722687
@@ -52632,7 +52672,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 83183bb58446e5d4ebae907dbd7b1711, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop015
+      value: object1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 83183bb58446e5d4ebae907dbd7b1711, type: 3}
       propertyPath: m_RootOrder
@@ -52702,6 +52742,11 @@ PrefabInstance:
 --- !u!4 &1114923628 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 83183bb58446e5d4ebae907dbd7b1711, type: 3}
+  m_PrefabInstance: {fileID: 1114923627}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1114923629 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 83183bb58446e5d4ebae907dbd7b1711, type: 3}
   m_PrefabInstance: {fileID: 1114923627}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1115891950
@@ -62232,7 +62277,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop012
+      value: sandwich2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
       propertyPath: m_RootOrder
@@ -62290,6 +62335,11 @@ PrefabInstance:
 --- !u!4 &1345546830 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
+  m_PrefabInstance: {fileID: 1345546829}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1345546831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
   m_PrefabInstance: {fileID: 1345546829}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1346720364
@@ -78338,7 +78388,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: f8fa756f9028ff448823a7ac6fb31545, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop006
+      value: bottle2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f8fa756f9028ff448823a7ac6fb31545, type: 3}
       propertyPath: m_RootOrder
@@ -78408,6 +78458,11 @@ PrefabInstance:
 --- !u!4 &1693065087 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: f8fa756f9028ff448823a7ac6fb31545, type: 3}
+  m_PrefabInstance: {fileID: 1693065086}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1693065088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: f8fa756f9028ff448823a7ac6fb31545, type: 3}
   m_PrefabInstance: {fileID: 1693065086}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1693351967
@@ -78818,7 +78873,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 615f46612a6cada45b33de32f3630c18, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop014
+      value: cup1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 615f46612a6cada45b33de32f3630c18, type: 3}
       propertyPath: m_RootOrder
@@ -78876,6 +78931,11 @@ PrefabInstance:
 --- !u!4 &1703286208 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 615f46612a6cada45b33de32f3630c18, type: 3}
+  m_PrefabInstance: {fileID: 1703286207}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1703286209 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 615f46612a6cada45b33de32f3630c18, type: 3}
   m_PrefabInstance: {fileID: 1703286207}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1703924247
@@ -79982,7 +80042,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop012
+      value: sandwich1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
       propertyPath: m_RootOrder
@@ -80040,6 +80100,11 @@ PrefabInstance:
 --- !u!4 &1726574400 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
+  m_PrefabInstance: {fileID: 1726574399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1726574401 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
   m_PrefabInstance: {fileID: 1726574399}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1726869216
@@ -81474,7 +81539,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 1c27e3b18e1157a4ba0dc4c7cc4b49a7, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop007
+      value: toiletpaper2
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1c27e3b18e1157a4ba0dc4c7cc4b49a7, type: 3}
       propertyPath: m_RootOrder
@@ -81544,6 +81609,11 @@ PrefabInstance:
 --- !u!4 &1752749172 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 1c27e3b18e1157a4ba0dc4c7cc4b49a7, type: 3}
+  m_PrefabInstance: {fileID: 1752749171}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1752749173 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 1c27e3b18e1157a4ba0dc4c7cc4b49a7, type: 3}
   m_PrefabInstance: {fileID: 1752749171}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1753070986
@@ -85077,9 +85147,25 @@ MonoBehaviour:
   userId: 0
   interactionType: 0
   objectsToSelect:
+  - {fileID: 1055322918}
   - {fileID: 481839509}
   - {fileID: 831758123}
   - {fileID: 1907886283}
+  - {fileID: 375187580}
+  - {fileID: 1752749173}
+  - {fileID: 251443579}
+  - {fileID: 660022196}
+  - {fileID: 1726574401}
+  - {fileID: 58564691}
+  - {fileID: 1095914208}
+  - {fileID: 1693065088}
+  - {fileID: 1345546831}
+  - {fileID: 1703286209}
+  - {fileID: 2121629937}
+  - {fileID: 1114923629}
+  - {fileID: 1693065088}
+  - {fileID: 983108202}
+  - {fileID: 428503087}
   raycastTechnique: {fileID: 1536012224}
   myTechnique: {fileID: 1536012223}
 --- !u!1001 &1824099530
@@ -96575,7 +96661,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop016
+      value: bottle3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_RootOrder
@@ -98997,7 +99083,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop012
+      value: sandwich3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
       propertyPath: m_RootOrder
@@ -99055,6 +99141,11 @@ PrefabInstance:
 --- !u!4 &2121629936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
+  m_PrefabInstance: {fileID: 2121629935}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2121629937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 43f1effb3d9321e4b964f44abfae40d8, type: 3}
   m_PrefabInstance: {fileID: 2121629935}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2122525484
