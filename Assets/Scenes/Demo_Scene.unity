@@ -70654,6 +70654,93 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
   m_PrefabInstance: {fileID: 1535081464}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1536012222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1536012225}
+  - component: {fileID: 1536012224}
+  - component: {fileID: 1536012223}
+  m_Layer: 0
+  m_Name: InteractionTechniques
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1536012223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536012222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7059ad93ef9324883cee9dfeb94aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectSelectedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1821447235}
+        m_TargetAssemblyTypeName: TaskManager, Assembly-CSharp
+        m_MethodName: OnSelectionEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &1536012224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536012222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e912090e0418684888fd598a5a021b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectSelectedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1821447235}
+        m_TargetAssemblyTypeName: TaskManager, Assembly-CSharp
+        m_MethodName: OnSelectionEvent
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!4 &1536012225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536012222}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1537896371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84805,6 +84892,8 @@ MonoBehaviour:
   - {fileID: 481839509}
   - {fileID: 831758123}
   - {fileID: 1907886283}
+  raycastTechnique: {fileID: 1536012224}
+  myTechnique: {fileID: 1536012223}
 --- !u!1001 &1824099530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100185,6 +100274,7 @@ SceneRoots:
   - {fileID: 534669905}
   - {fileID: 1384840855299983749}
   - {fileID: 1821447234}
+  - {fileID: 1536012225}
   - {fileID: 1118924068}
   - {fileID: 170076735}
   - {fileID: 1101606087}

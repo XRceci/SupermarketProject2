@@ -16,6 +16,12 @@ public class TaskManager : MonoBehaviour
     public INTERACTION_TYPE interactionType = INTERACTION_TYPE.RAYCASTING;
     public List<GameObject> objectsToSelect;
 
+    [SerializeField]
+    RaycastTechnique raycastTechnique;
+
+    [SerializeField]
+    MyTechnique myTechnique;
+
     private int currentTaskIndex = 0;
 
     // Log variables
@@ -24,6 +30,17 @@ public class TaskManager : MonoBehaviour
 
     private void Start()
     {
+        // Disabling all technique scripts except the one selected
+        switch (interactionType)
+        {
+            case INTERACTION_TYPE.RAYCASTING:
+                myTechnique.enabled = false;
+                break;
+            case INTERACTION_TYPE.MY_TECHNIQUE:
+                raycastTechnique.enabled = false;
+                break;
+        }
+
         taskLogs = new List<TaskLog>();
 
         SelectableObject objectToSelectScript = objectsToSelect[0].GetComponent<SelectableObject>();
@@ -37,7 +54,7 @@ public class TaskManager : MonoBehaviour
         return objectsToSelect[currentTaskIndex];
     }
 
-    public void OnSelectionEvent(SelectableObject selectedObject)
+    public void OnSelectionEvent(GameObject selectedObject)
     {
         SelectableObject selectedObjectScript = selectedObject.GetComponent<SelectableObject>();
         SelectableObject objectToSelectScript = objectsToSelect[currentTaskIndex].GetComponent<SelectableObject>();
