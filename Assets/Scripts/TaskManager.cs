@@ -16,30 +16,31 @@ public class TaskManager : MonoBehaviour
     public INTERACTION_TYPE interactionType = INTERACTION_TYPE.RAYCASTING;
     public List<GameObject> objectsToSelect;
 
-    private int currentObjectIndex = 0;
+    private int currentTaskIndex = 0;
 
-    // REVIEW ME
-    List<Tasklog> logTasks = new List<Tasklog>();
-    float startTimestamp = 0;
-    float endTimestamp = 0;
-    int numberOfObjects = 10;
-    int errorCount = 0;
-    float totalTime = 0;
+    // Log variables
+    private List<TaskLog> taskLogs;
+    private TaskLog currentTaskLog;
 
     private void Start()
     {
-        objectsToSelect[currentObjectIndex].GetComponent<SelectableObject>().SetAsTarget();
+        taskLogs = new List<TaskLog>();
+
+        SelectableObject objectToSelectScript = objectsToSelect[0].GetComponent<SelectableObject>();
+
+        currentTaskLog = new TaskLog(Time.time, objectToSelectScript.GetObjectName());
+        objectToSelectScript.SetAsTarget();
     }
 
     public GameObject GetCurrentObjectToSelect()
     {
-        return objectsToSelect[currentObjectIndex];
+        return objectsToSelect[currentTaskIndex];
     }
 
     public void OnSelectionEvent(SelectableObject selectedObject)
     {
         SelectableObject selectedObjectScript = selectedObject.GetComponent<SelectableObject>();
-        SelectableObject objectToSelectScript = objectsToSelect[currentObjectIndex].GetComponent<SelectableObject>();
+        SelectableObject objectToSelectScript = objectsToSelect[currentTaskIndex].GetComponent<SelectableObject>();
         if (selectedObjectScript == null || selectedObjectScript.GetObjectName() != objectToSelectScript.GetObjectName())
         {
             HandleSelectionError();
@@ -47,58 +48,49 @@ public class TaskManager : MonoBehaviour
         else
         {
             objectToSelectScript.SetAsSuccess();
-            // TODO add log
             BeginNextSelectionTask();
         }
     }
 
     private void HandleSelectionError()
     {
-        errorCount++;
-        // TODO add log
+        currentTaskLog.IncrementErrorCount();
     }
 
     private void BeginNextSelectionTask()
     {
-        if (currentObjectIndex + 1 < objectsToSelect.Count)
+        currentTaskLog.SetEndTimestamp(Time.time);
+        taskLogs.Add(currentTaskLog);
+
+        if (currentTaskIndex + 1 < objectsToSelect.Count)
         {
-            currentObjectIndex++;
+            currentTaskIndex++;
 
-            SelectableObject objectToSelectScript = objectsToSelect[currentObjectIndex].GetComponent<SelectableObject>();
+            SelectableObject objectToSelectScript = objectsToSelect[currentTaskIndex].GetComponent<SelectableObject>();
+
+            currentTaskLog = new TaskLog(Time.time, objectToSelectScript.GetObjectName());
             objectToSelectScript.SetAsTarget();
-
-            // TODO add log
         }
         else
         {
-            // TODO add log and handle end of study
+            GenerateReport();
+            // TODO handle end of study
         }
     }
 
-
-
-
-
-
-
-
-    public void generateReport()
+    private void GenerateReport()
     {
-        string fileName = userId+ ","+interactionType.ToString() + ".csv";
-        string str = "timestamp,userId,interactionType,task,time,precisionX,precisionY,precisionZ\n";
-        foreach(Tasklog tLog in logTasks)
+        string fileName = userId + "_" + interactionType.ToString() + ".csv";
+        string logLines = "userId,interactionType,objectName,startTimestamp,endTimestamp,errorCount\n";
+        foreach(TaskLog taskLog in taskLogs)
         {
-            str +=  Time.time + ","+ userId + ","+ interactionType + "," + (tLog.Endtimestamp - tLog.Inittimestamp) + "," + tLog.numberErrors + "," + tLog.Precision.x + "," + 
-                    tLog.Precision.y + "," + tLog.Precision.z + "\n";
+            logLines += userId + "," + interactionType + "," + taskLog.GetObjectName() + "," + taskLog.GetStartTimestamp() + "," + taskLog.GetEndTimestamp() + "," + taskLog.GetErrorCount() + "\n";
         }
 
-        str += "Total," + userId + "," + interactionType + "," + (endTimestamp - startTimestamp) + "," + errorCount + "\n";
-
-        CreateNewDataFile(fileName, str);
-
+        CreateNewDataFile(fileName, logLines);
     }
 
-    private void CreateNewDataFile(string filename,string xontent)
+    private void CreateNewDataFile(string filename, string content)
     {
         //** N.B. use .persistentDataPath if running on Quest/device unlinked,
         //**      else use .dataPath if Quest/device is linked/connected to machine via USB.
@@ -109,13 +101,13 @@ public class TaskManager : MonoBehaviour
         if (!File.Exists(path))
         {
             //var text = System.DateTime.Now + ",START\n";
-            File.WriteAllText(path, xontent);
+            File.WriteAllText(path, content);
         }
         else
         {
             //** Add data to file
             //string content = System.DateTime.Now + ",File Already Exists\n";
-            File.AppendAllText(path, xontent);
+            File.AppendAllText(path, content);
         }
     }
 }

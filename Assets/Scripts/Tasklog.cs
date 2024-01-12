@@ -1,27 +1,55 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Tasklog 
+public class TaskLog 
 {
-    float inittimestamp = 0;
-    float endtimestamp = 0;
-    Vector3 precision;
-    public int numberErrors = 0;
-    public  Tasklog(float inittimestamp)
+    private int errorCount = 0;
+
+    private float startTimestamp = -1f;
+    private float endTimestamp = -1f;
+
+    private string objectName;
+
+    public TaskLog(float startTimestamp, string objectName)
     {
-        this.inittimestamp = inittimestamp;
+        this.startTimestamp = startTimestamp;
+        this.objectName = objectName;
     }
 
-    public Tasklog(float inittimestamp, float endtimestamp, Vector3 precision)
+    public int GetErrorCount()
     {
-        this.inittimestamp = inittimestamp;
-        this.endtimestamp = endtimestamp;
-        this.precision = precision;
+        return this.errorCount;
     }
 
-    public float Inittimestamp { get => inittimestamp; set => inittimestamp = value; }
-    public float Endtimestamp { get => endtimestamp; set => endtimestamp = value; }
-    public Vector3 Precision { get => precision; set => precision = value; }
+    public void IncrementErrorCount()
+    {
+        this.errorCount++;
+    }
 
+    public float GetStartTimestamp()
+    {
+        return this.startTimestamp;
+    }
+
+    public void SetStartTimestamp(float startTimestamp)
+    {
+        this.startTimestamp = startTimestamp;
+    }
+
+    public float GetEndTimestamp()
+    {
+        return this.endTimestamp;
+    }
+
+    public void SetEndTimestamp(float endTimestamp)
+    {
+        this.endTimestamp = endTimestamp;
+    }
+
+    public string GetObjectName()
+    {
+        return this.objectName;
+    }
+
+    public void SetObjectName(string objectName)
+    {
+        this.objectName = objectName;
+    }
 }
