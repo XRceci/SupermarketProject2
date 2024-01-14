@@ -30,7 +30,6 @@ public class Arrow : MonoBehaviour {
         {
             this.transform.LookAt(currentObjectToSelect.transform.position);
             float distance = Vector3.Distance(this.transform.position, currentObjectToSelect.transform.position);
-            print("distance = " + distance);
             if(distance <= closeDistance)
             {
                 arrowMesh.material = closeObjectMaterial;
