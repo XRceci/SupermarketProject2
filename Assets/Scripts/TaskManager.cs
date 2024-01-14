@@ -12,6 +12,7 @@ public enum INTERACTION_TYPE
 
 public class TaskManager : MonoBehaviour
 {
+    public bool isTraining = false;
     public int userId = 0;
     public INTERACTION_TYPE interactionType = INTERACTION_TYPE.RAYCASTING;
     public List<GameObject> objectsToSelect;
@@ -42,6 +43,11 @@ public class TaskManager : MonoBehaviour
         }
 
         taskLogs = new List<TaskLog>();
+
+        if (isTraining)
+        {
+            objectsToSelect = objectsToSelect.GetRange(1, 10);//setting training objects as a subset
+        }
 
         SelectableObject objectToSelectScript = objectsToSelect[0].GetComponent<SelectableObject>();
 
@@ -90,7 +96,8 @@ public class TaskManager : MonoBehaviour
         }
         else
         {
-            GenerateReport();
+            if(!isTraining)
+                GenerateReport();
             // TODO handle end of study
         }
     }
