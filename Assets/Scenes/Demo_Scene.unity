@@ -85144,6 +85144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5b82c82903aad14ca12cf40e3a6ae70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTraining: 0
   userId: 0
   interactionType: 0
   objectsToSelect:
@@ -100495,9 +100496,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 23056013066933733}
     - target: {fileID: 3545104200565963885, guid: 30c8fb65a68d06d4491a59b2e7f9de4e, type: 3}
+      propertyPath: farDistance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545104200565963885, guid: 30c8fb65a68d06d4491a59b2e7f9de4e, type: 3}
       propertyPath: taskManager
       value: 
       objectReference: {fileID: 1821447235}
+    - target: {fileID: 3545104200565963885, guid: 30c8fb65a68d06d4491a59b2e7f9de4e, type: 3}
+      propertyPath: closeDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3545104200565963885, guid: 30c8fb65a68d06d4491a59b2e7f9de4e, type: 3}
+      propertyPath: farObjectMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: c6e74e89ee7dfbc4aaf7cef4e02d8e52, type: 2}
+    - target: {fileID: 3545104200565963885, guid: 30c8fb65a68d06d4491a59b2e7f9de4e, type: 3}
+      propertyPath: midObjectMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: f9aad7de05ef687468150b5cd1e31975, type: 2}
+    - target: {fileID: 3545104200565963885, guid: 30c8fb65a68d06d4491a59b2e7f9de4e, type: 3}
+      propertyPath: closeObjectMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 5fef5714231ad1844b39e0e811f58fc7, type: 2}
     - target: {fileID: 3584678834547402619, guid: 30c8fb65a68d06d4491a59b2e7f9de4e, type: 3}
       propertyPath: m_LocalScale.x
       value: 3
