@@ -96,8 +96,10 @@ public class TaskManager : MonoBehaviour
         }
         else
         {
-            if(!isTraining)
+            if (!isTraining)
+            {
                 GenerateReport();
+            }
             // TODO handle end of study
         }
     }
