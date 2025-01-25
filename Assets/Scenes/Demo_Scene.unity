@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44422355, g: 0.493666, b: 0.5730563, a: 1}
+  m_IndirectSpecularColor: {r: 0.17850426, g: 0.22350983, b: 0.305494, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -31145,7 +31145,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 1c27e3b18e1157a4ba0dc4c7cc4b49a7, type: 3}
       propertyPath: m_Name
-      value: hypercasual_prop007
+      value: paper
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1c27e3b18e1157a4ba0dc4c7cc4b49a7, type: 3}
       propertyPath: m_RootOrder
@@ -33037,7 +33037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.432
+      value: 3.3
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -33045,7 +33045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.119
+      value: 7.12
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -45834,6 +45834,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d3c792b370e37f345a676b85bb201d1c, type: 3}
   m_PrefabInstance: {fileID: 975746137}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &975759311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11400010, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+  m_PrefabInstance: {fileID: 1097607491}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9f338034892c44ebb62d97894772f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &976077043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48095,7 +48106,6 @@ Transform:
   - {fileID: 1170878959}
   - {fileID: 936230523}
   - {fileID: 1535081465}
-  - {fileID: 1746573604}
   - {fileID: 1066267953}
   - {fileID: 2060716811}
   - {fileID: 1603223422}
@@ -71123,6 +71133,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+  cameraRig: {fileID: 975759311}
+  rightController: {fileID: 798770018}
+  raycastDistance: 500
+  attractionSpeed: 2
+  circleRadius: 2
+  circleDistance: 3.01
+  moveSpeed: 4.06
+  highlightMaterial: {fileID: 2100000, guid: 949d4f9cc0a3f314aa9971d57234cd94, type: 2}
 --- !u!114 &1536012224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74241,6 +74259,7 @@ Transform:
   - {fileID: 601601771}
   - {fileID: 1901652214}
   - {fileID: 906284712}
+  - {fileID: 1746573604}
   - {fileID: 431641011}
   - {fileID: 33664174}
   - {fileID: 964934514}
@@ -81451,7 +81470,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1029772087}
+    m_TransformParent: {fileID: 1594996172}
     m_Modifications:
     - target: {fileID: 100000, guid: 9d5c05ac52182b747b933866936f439b, type: 3}
       propertyPath: m_Name
@@ -85334,7 +85353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTraining: 0
   userId: 0
-  interactionType: 0
+  interactionType: 1
   objectsToSelect:
   - {fileID: 1055322918}
   - {fileID: 481839509}
@@ -85356,6 +85375,7 @@ MonoBehaviour:
   - {fileID: 983108202}
   - {fileID: 428503087}
   - {fileID: 983108202}
+  - {fileID: 1868897426}
   raycastTechnique: {fileID: 1536012224}
   myTechnique: {fileID: 1536012223}
 --- !u!1001 &1824099530
@@ -87536,6 +87556,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 615f46612a6cada45b33de32f3630c18, type: 3}
   m_PrefabInstance: {fileID: 1867188096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1868897426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 1c27e3b18e1157a4ba0dc4c7cc4b49a7, type: 3}
+  m_PrefabInstance: {fileID: 678682624}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1869084081
 PrefabInstance:
