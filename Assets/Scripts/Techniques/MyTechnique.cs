@@ -58,6 +58,10 @@ public class MyTechnique : InteractionTechnique
     private GameObject pointedObject = null;   // Currently pointed object
     private GameObject selectedObject = null;  // Currently selected object
     private float selectionTime = 0f;         // Time when last selection occurred
+    
+    // store the circle's center position
+    private Vector3 circleCenterPoint;
+    private bool isCirclePositionSet = false;
 
     private void Start()
     {   
@@ -113,7 +117,7 @@ public class MyTechnique : InteractionTechnique
         Transform controllerTransform = rightController.transform;
         RaycastHit hit;
 
-        // Clear selection after 5 seconds
+        // Clear selection after 3 seconds
         if (selectedObject != null && Time.time - selectionTime > 3f)
         {
             selectedObject = null;
@@ -183,6 +187,7 @@ public class MyTechnique : InteractionTechnique
                 isReturning = true;
                 RestoreOriginalMaterials();
                 selectedObject = null;
+                isCirclePositionSet = false; // Reset circle position flag
             }
             else if (!isReturning)
             {
@@ -230,6 +235,10 @@ public class MyTechnique : InteractionTechnique
                 if (activeObjects.Count > 0)
                 {
                     isAttracting = true;
+                    // Set the initial circle center point when starting attraction
+                    circleCenterPoint = controllerTransform.position + controllerTransform.forward * circleDistance;
+                    isCirclePositionSet = true;  
+                    
                 }
             }
         }
@@ -260,23 +269,18 @@ public class MyTechnique : InteractionTechnique
     /// Arranges active objects in a circle in front of the controller
     private void ArrangeObjectsInCircle()
     {
-        Transform controllerTransform = rightController.transform;
-        Vector3 centerPoint = controllerTransform.position + controllerTransform.forward * circleDistance;
-        
-        // Calculate angle step for even distribution
+        // Use the stored circle center point instead of updating it based on controller position
         float angleStep = 360f / activeObjects.Count;
         
-        // Position each object around the circle
         for (int i = 0; i < activeObjects.Count; i++)
         {
             float angle = i * angleStep * Mathf.Deg2Rad;
-            Vector3 targetPosition = centerPoint + new Vector3(
+            Vector3 targetPosition = circleCenterPoint + new Vector3(
                 Mathf.Sin(angle) * circleRadius,
                 0,
                 Mathf.Cos(angle) * circleRadius
             );
 
-            // Smoothly move object to target position
             activeObjects[i].transform.position = Vector3.Lerp(
                 activeObjects[i].transform.position,
                 targetPosition,
