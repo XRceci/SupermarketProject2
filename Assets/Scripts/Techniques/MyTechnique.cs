@@ -43,8 +43,10 @@ public class MyTechnique : InteractionTechnique
     private GameObject selectedObject = null;
     private float selectionTime = 0f;
     private bool isDropping = false;
-
+    private float returnStartTime = 0f;  // Tracks when objects start returning
+    private Vector3 circlePosition;  // Stores the fixed position of the circle
     private float rotationAngle = 0f;  // Tracks the rotation of the arranged objects
+    private Vector3 selectedObjectPosition;  // Position where object was selected
 
     private void Start()
     {
@@ -87,23 +89,27 @@ public class MyTechnique : InteractionTechnique
     }
 
     private void HandleObjectSelection()
+{
+    // Only check isAttracting - we should still be able to select even if activeObjects is empty
+    if (!isAttracting) return;
+
+    Transform controllerTransform = rightController.transform;
+    RaycastHit hit;
+
+    if (selectedObject != null && Time.time - selectionTime > 3f)
     {
-        if (!isAttracting || activeObjects.Count == 0) return;
+        selectedObject = null;
+    }
 
-        Transform controllerTransform = rightController.transform;
-        RaycastHit hit;
+    if (pointedObject != null && pointedObject != selectedObject)
+    {
+        pointedObject.GetComponent<MeshRenderer>().material = originalMaterials[pointedObject];
+        pointedObject = null;
+    }
 
-        if (selectedObject != null && Time.time - selectionTime > 3f)
-        {
-            selectedObject = null;
-        }
-
-        if (pointedObject != null && pointedObject != selectedObject)
-        {
-            pointedObject.GetComponent<MeshRenderer>().material = originalMaterials[pointedObject];
-            pointedObject = null;
-        }
-
+    // Only try to highlight/select if we have active objects
+    if (activeObjects.Count > 0)
+    {
         if (Physics.Raycast(controllerTransform.position, controllerTransform.forward, out hit))
         {
             GameObject hitObject = hit.collider.gameObject;
@@ -121,6 +127,9 @@ public class MyTechnique : InteractionTechnique
                     selectionTime = Time.time;
                     pointedObject = null;
 
+                    selectedObjectPosition = hitObject.transform.position;
+                    activeObjects.Remove(hitObject);
+                    
                     SelectableObject selectableObject = hitObject.GetComponent<SelectableObject>();
                     if (selectableObject != null)
                     {
@@ -130,77 +139,80 @@ public class MyTechnique : InteractionTechnique
                 }
             }
         }
-
-        wasAButtonPressed = OVRInput.Get(OVRInput.Button.One);
-
-        if (isDropping && selectedObject != null)
-        {
-            DropObject(selectedObject);
-        }
     }
 
-    private void HandleObjectAttraction()
+    wasAButtonPressed = OVRInput.Get(OVRInput.Button.One);
+
+    if (isDropping && selectedObject != null)
     {
-        Transform controllerTransform = rightController.transform;
-
-        lineRenderer.SetPosition(0, controllerTransform.position);
-        lineRenderer.SetPosition(1, controllerTransform.position + controllerTransform.forward * raycastDistance);
-
-        float triggerValue = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
-        bool isTriggerPressed = triggerValue > 0.1f;
-
-        if (isTriggerPressed && !wasTriggerPressed)
-        {
-            if (isAttracting)
-            {
-                isAttracting = false;
-                isReturning = true;
-                RestoreOriginalMaterials();
-                ReturnObjectsToOriginalPositions();
-            }
-            else if (!isReturning)
-            {
-                RaycastHit[] hits = Physics.RaycastAll(controllerTransform.position,
-                                                     controllerTransform.forward,
-                                                     raycastDistance);
-
-                activeObjects.Clear();
-
-                foreach (RaycastHit hit in hits)
-                {
-                    GameObject hitObject = hit.collider.gameObject;
-                    if (!activeObjects.Contains(hitObject))
-                    {
-                        activeObjects.Add(hitObject);
-                        if (!originalPositions.ContainsKey(hitObject))
-                        {
-                            originalPositions[hitObject] = hitObject.transform.position;
-                            originalMaterials[hitObject] = hitObject.GetComponent<MeshRenderer>().material;
-                        }
-                    }
-                }
-
-                if (activeObjects.Count > 0)
-                {
-                    isAttracting = true;
-                }
-            }
-        }
-
-        if (isAttracting && activeObjects.Count > 0)
-        {
-            ArrangeObjectsInCircle();
-        }
-        else if (isReturning && activeObjects.Count > 0)
-        {
-            ReturnObjectsToOriginalPositions();
-        }
-
-        wasTriggerPressed = isTriggerPressed;
+        DropObject(selectedObject);
     }
+}
+
+private void HandleObjectAttraction()
+{
+    Transform controllerTransform = rightController.transform;
+    lineRenderer.SetPosition(0, controllerTransform.position);
+    lineRenderer.SetPosition(1, controllerTransform.position + controllerTransform.forward * raycastDistance);
+
+    float triggerValue = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
+    bool isTriggerPressed = triggerValue > 0.1f;
+
+    if (isTriggerPressed && !wasTriggerPressed)
+{
+    if (isAttracting && activeObjects.Count > 0)  // Only try to return if we have objects
+    {
+        isAttracting = false;
+        isReturning = true;
+        returnStartTime = Time.time;
+        RestoreOriginalMaterials();
+    }
+    else if (!isReturning)  // This will now trigger when we have no objects
+    {
+        RaycastHit[] hits = Physics.RaycastAll(controllerTransform.position,
+                                            controllerTransform.forward,
+                                            raycastDistance);
+
+        activeObjects.Clear();
+        foreach (RaycastHit hit in hits)
+        {
+            GameObject hitObject = hit.collider.gameObject;
+            if (!activeObjects.Contains(hitObject) && hitObject != selectedObject)
+            {
+                activeObjects.Add(hitObject);
+                if (!originalPositions.ContainsKey(hitObject))
+                {
+                    originalPositions[hitObject] = hitObject.transform.position;
+                    originalMaterials[hitObject] = hitObject.GetComponent<MeshRenderer>().material;
+                }
+            }
+        }
+
+        if (activeObjects.Count > 0)
+        {
+            isAttracting = true;
+            circlePosition = controllerTransform.position + controllerTransform.forward * circleDistance;
+        }
+    }
+}
+
+    if (isAttracting && activeObjects.Count > 0)
+    {
+        ArrangeObjectsInCircle();
+    }
+    else if (isReturning && activeObjects.Count > 0)
+    {
+        ReturnObjectsToOriginalPositions();  
+    }
+
+    wasTriggerPressed = isTriggerPressed;
+}
 
     private void HandleObjectRotation()
     {
+        // Don't allow rotation if objects are returning or there are no active objects
+        if (isReturning || activeObjects.Count == 0) return;
+
         Vector2 joystickInput = OVRInput.Get(OVRInput.Axis2D.SecondaryThumbstick);
         if (Mathf.Abs(joystickInput.x) > 0.1f)
         {
@@ -211,14 +223,13 @@ public class MyTechnique : InteractionTechnique
 
     private void ArrangeObjectsInCircle()
     {
-        Transform controllerTransform = rightController.transform;
-        Vector3 centerPoint = controllerTransform.position + controllerTransform.forward * circleDistance;
+        // Use stored position instead of controller position
         float angleStep = 360f / activeObjects.Count;
 
         for (int i = 0; i < activeObjects.Count; i++)
         {
             float angle = i * angleStep * Mathf.Deg2Rad + rotationAngle;
-            Vector3 targetPosition = centerPoint + new Vector3(
+            Vector3 targetPosition = circlePosition + new Vector3(
                 Mathf.Sin(angle) * circleRadius,
                 0,
                 Mathf.Cos(angle) * circleRadius
@@ -234,12 +245,36 @@ public class MyTechnique : InteractionTechnique
 
     private void ReturnObjectsToOriginalPositions()
     {
-        foreach (var obj in activeObjects)
+        List<GameObject> objectsToRemove = new List<GameObject>();
+        
+        foreach (GameObject obj in activeObjects)
         {
-            obj.transform.position = originalPositions[obj];
+            Vector3 currentPos = obj.transform.position;
+            Vector3 targetPos = originalPositions[obj];
+            
+            obj.transform.position = Vector3.Lerp(currentPos, targetPos, Time.deltaTime * attractionSpeed);
+            
+            if (Vector3.Distance(currentPos, targetPos) < 0.1f)
+            {
+                objectsToRemove.Add(obj);
+                obj.transform.position = targetPos;
+            }
         }
-        activeObjects.Clear();
-        isReturning = false;
+        
+        foreach (GameObject obj in objectsToRemove)
+        {
+            activeObjects.Remove(obj);
+            originalPositions.Remove(obj);
+            originalMaterials.Remove(obj);
+        }
+        
+        if (activeObjects.Count == 0 || Time.time - returnStartTime > 2.0f)
+        {
+            isReturning = false;
+            activeObjects.Clear();
+            //originalPositions.Clear();
+            //originalMaterials.Clear();
+        }
     }
 
     private void RestoreOriginalMaterials()
@@ -253,6 +288,9 @@ public class MyTechnique : InteractionTechnique
 
     private void DropObject(GameObject obj)
     {
+        // Set object position to where it was selected before adding physics
+        obj.transform.position = selectedObjectPosition;
+        
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb == null)
         {
