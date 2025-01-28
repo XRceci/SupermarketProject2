@@ -4,6 +4,12 @@ using System.Collections.Generic;
 public class MyTechnique : InteractionTechnique
 {
     [SerializeField]
+    public GameObject Quad1; // step1 movement 
+    public GameObject Quad2; // step2 trigger open
+    public GameObject Quad3; // step3 trigger close
+    
+
+    [SerializeField]
     private OVRCameraRig cameraRig;  // Reference to VR camera rig for movement
 
     [SerializeField]
@@ -51,6 +57,13 @@ public class MyTechnique : InteractionTechnique
     private void Start()
     {
         lineRenderer = rightController.GetComponent<LineRenderer>();
+        // turn on quad 1 turn off 2 3 4 5 
+        Quad1.SetActive(true);
+        Quad2.SetActive(false);
+        Quad3.SetActive(false);
+     
+
+
         if (lineRenderer == null)
         {
             lineRenderer = rightController.AddComponent<LineRenderer>();
@@ -58,6 +71,7 @@ public class MyTechnique : InteractionTechnique
             lineRenderer.endWidth = 0.01f;
             lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
             lineRenderer.material.color = Color.red;
+           
         }
     }
 
@@ -85,128 +99,143 @@ public class MyTechnique : InteractionTechnique
 
             Vector3 moveDirection = (forward * joystickInput.y + right * joystickInput.x);
             cameraRig.transform.position += moveDirection * moveSpeed * Time.deltaTime;
+
+            // turn on quad 2 turn off 1 3 4 
+            Quad1.SetActive(false);
+            Quad2.SetActive(true);
+            Quad3.SetActive(false);
+            
         }
     }
 
     private void HandleObjectSelection()
-{
-    // Only check isAttracting - we should still be able to select even if activeObjects is empty
-    if (!isAttracting) return;
-
-    Transform controllerTransform = rightController.transform;
-    RaycastHit hit;
-
-    if (selectedObject != null && Time.time - selectionTime > 3f)
     {
-        selectedObject = null;
-    }
+        // Only check isAttracting - we should still be able to select even if activeObjects is empty
+        if (!isAttracting) return;
 
-    if (pointedObject != null && pointedObject != selectedObject)
-    {
-        pointedObject.GetComponent<MeshRenderer>().material = originalMaterials[pointedObject];
-        pointedObject = null;
-    }
+        Transform controllerTransform = rightController.transform;
+        RaycastHit hit;
 
-    // Only try to highlight/select if we have active objects
-    if (activeObjects.Count > 0)
-    {
-        if (Physics.Raycast(controllerTransform.position, controllerTransform.forward, out hit))
+        if (selectedObject != null && Time.time - selectionTime > 3f)
         {
-            GameObject hitObject = hit.collider.gameObject;
+            selectedObject = null;
+        }
 
-            if (activeObjects.Contains(hitObject) && hitObject != selectedObject)
+        if (pointedObject != null && pointedObject != selectedObject)
+        {
+            pointedObject.GetComponent<MeshRenderer>().material = originalMaterials[pointedObject];
+            pointedObject = null;
+        }
+
+        // Only try to highlight/select if we have active objects
+        if (activeObjects.Count > 0)
+        {
+            if (Physics.Raycast(controllerTransform.position, controllerTransform.forward, out hit))
             {
-                pointedObject = hitObject;
-                hitObject.GetComponent<MeshRenderer>().material = highlightMaterial;
+                GameObject hitObject = hit.collider.gameObject;
 
-                bool isAButtonPressed = OVRInput.Get(OVRInput.Button.One);
-                if (isAButtonPressed && !wasAButtonPressed)
+                if (activeObjects.Contains(hitObject) && hitObject != selectedObject)
                 {
-                    selectedObject = hitObject;
-                    currentSelectedObject = hitObject;
-                    selectionTime = Time.time;
-                    pointedObject = null;
+                    pointedObject = hitObject;
+                    hitObject.GetComponent<MeshRenderer>().material = highlightMaterial;
 
-                    selectedObjectPosition = hitObject.transform.position;
-                    activeObjects.Remove(hitObject);
-                    
-                    SelectableObject selectableObject = hitObject.GetComponent<SelectableObject>();
-                    if (selectableObject != null)
+                    bool isAButtonPressed = OVRInput.Get(OVRInput.Button.One);
+                    if (isAButtonPressed && !wasAButtonPressed)
                     {
-                        selectableObject.SetAsSuccess();
-                        isDropping = true;
+                        selectedObject = hitObject;
+                        currentSelectedObject = hitObject;
+                        selectionTime = Time.time;
+                        pointedObject = null;
+
+                        selectedObjectPosition = hitObject.transform.position;
+                        activeObjects.Remove(hitObject);
+
+                        SelectableObject selectableObject = hitObject.GetComponent<SelectableObject>();
+                        if (selectableObject != null)
+                        {
+                            selectableObject.SetAsSuccess();
+                            isDropping = true;
+                        }
                     }
                 }
             }
         }
-    }
 
-    wasAButtonPressed = OVRInput.Get(OVRInput.Button.One);
+        wasAButtonPressed = OVRInput.Get(OVRInput.Button.One);
 
-    if (isDropping && selectedObject != null)
-    {
-        DropObject(selectedObject);
-    }
-}
-
-private void HandleObjectAttraction()
-{
-    Transform controllerTransform = rightController.transform;
-    lineRenderer.SetPosition(0, controllerTransform.position);
-    lineRenderer.SetPosition(1, controllerTransform.position + controllerTransform.forward * raycastDistance);
-
-    float triggerValue = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
-    bool isTriggerPressed = triggerValue > 0.1f;
-
-    if (isTriggerPressed && !wasTriggerPressed)
-{
-    if (isAttracting && activeObjects.Count > 0)  // Only try to return if we have objects
-    {
-        isAttracting = false;
-        isReturning = true;
-        returnStartTime = Time.time;
-        RestoreOriginalMaterials();
-    }
-    else if (!isReturning)  // This will now trigger when we have no objects
-    {
-        RaycastHit[] hits = Physics.RaycastAll(controllerTransform.position,
-                                            controllerTransform.forward,
-                                            raycastDistance);
-
-        activeObjects.Clear();
-        foreach (RaycastHit hit in hits)
+        if (isDropping && selectedObject != null)
         {
-            GameObject hitObject = hit.collider.gameObject;
-            if (!activeObjects.Contains(hitObject) && hitObject != selectedObject)
+            DropObject(selectedObject);
+        }
+    }
+
+    private void HandleObjectAttraction()
+    {
+        Transform controllerTransform = rightController.transform;
+        lineRenderer.SetPosition(0, controllerTransform.position);
+        lineRenderer.SetPosition(1, controllerTransform.position + controllerTransform.forward * raycastDistance);
+
+        float triggerValue = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
+        bool isTriggerPressed = triggerValue > 0.1f;
+
+        
+
+        if (isTriggerPressed && !wasTriggerPressed)
+        {
+             
+
+            if (isAttracting && activeObjects.Count > 0)  // Only try to return if we have objects
             {
-                activeObjects.Add(hitObject);
-                if (!originalPositions.ContainsKey(hitObject))
+                isAttracting = false;
+                isReturning = true;
+                returnStartTime = Time.time;
+                RestoreOriginalMaterials();
+            }
+            else if (!isReturning)  // This will now trigger when we have no objects
+            {
+                RaycastHit[] hits = Physics.RaycastAll(controllerTransform.position,
+                                                    controllerTransform.forward,
+                                                    raycastDistance);
+
+                activeObjects.Clear();
+                foreach (RaycastHit hit in hits)
                 {
-                    originalPositions[hitObject] = hitObject.transform.position;
-                    originalMaterials[hitObject] = hitObject.GetComponent<MeshRenderer>().material;
+                    GameObject hitObject = hit.collider.gameObject;
+                    if (!activeObjects.Contains(hitObject) && hitObject != selectedObject)
+                    {
+                        activeObjects.Add(hitObject);
+                        if (!originalPositions.ContainsKey(hitObject))
+                        {
+                            originalPositions[hitObject] = hitObject.transform.position;
+                            originalMaterials[hitObject] = hitObject.GetComponent<MeshRenderer>().material;
+                        }
+                    }
+                }
+
+                if (activeObjects.Count > 0)
+                {
+                    isAttracting = true;
+                    circlePosition = controllerTransform.position + controllerTransform.forward * circleDistance;
                 }
             }
         }
 
-        if (activeObjects.Count > 0)
+        if (isAttracting && activeObjects.Count > 0)
         {
-            isAttracting = true;
-            circlePosition = controllerTransform.position + controllerTransform.forward * circleDistance;
+            Quad1.SetActive(false);// turn on quad 3   turn off 1 2 4
+            Quad2.SetActive(false);
+            Quad3.SetActive(true);
+            
+            ArrangeObjectsInCircle();
         }
-    }
-}
+        else if (isReturning && activeObjects.Count > 0)
+        {
+            ReturnObjectsToOriginalPositions();
+             
+        }
 
-    if (isAttracting && activeObjects.Count > 0)
-    {
-        ArrangeObjectsInCircle();
+        wasTriggerPressed = isTriggerPressed;
     }
-    else if (isReturning && activeObjects.Count > 0)
-    {
-        ReturnObjectsToOriginalPositions();  
-    }
-
-    wasTriggerPressed = isTriggerPressed;
-}
 
     private void HandleObjectRotation()
     {
@@ -218,6 +247,11 @@ private void HandleObjectAttraction()
         {
             rotationAngle += joystickInput.x * moveSpeed * Time.deltaTime;
             ArrangeObjectsInCircle();
+
+            Quad1.SetActive(false);
+            Quad2.SetActive(false);
+            Quad3.SetActive(true);
+            
         }
     }
 
@@ -240,40 +274,49 @@ private void HandleObjectAttraction()
                 targetPosition,
                 Time.deltaTime * attractionSpeed
             );
+            Quad1.SetActive(false);
+            Quad2.SetActive(false);
+            Quad3.SetActive(true);
+            
         }
     }
 
     private void ReturnObjectsToOriginalPositions()
     {
         List<GameObject> objectsToRemove = new List<GameObject>();
-        
+
         foreach (GameObject obj in activeObjects)
         {
             Vector3 currentPos = obj.transform.position;
             Vector3 targetPos = originalPositions[obj];
-            
+
             obj.transform.position = Vector3.Lerp(currentPos, targetPos, Time.deltaTime * attractionSpeed);
-            
+
             if (Vector3.Distance(currentPos, targetPos) < 0.1f)
             {
                 objectsToRemove.Add(obj);
                 obj.transform.position = targetPos;
             }
         }
-        
+
         foreach (GameObject obj in objectsToRemove)
         {
             activeObjects.Remove(obj);
             originalPositions.Remove(obj);
             originalMaterials.Remove(obj);
         }
-        
+
         if (activeObjects.Count == 0 || Time.time - returnStartTime > 2.0f)
         {
             isReturning = false;
             activeObjects.Clear();
             //originalPositions.Clear();
             //originalMaterials.Clear();
+
+            Quad1.SetActive(false);
+            Quad2.SetActive(true);
+            Quad3.SetActive(false);
+            
         }
     }
 
@@ -290,7 +333,7 @@ private void HandleObjectAttraction()
     {
         // Set object position to where it was selected before adding physics
         obj.transform.position = selectedObjectPosition;
-        
+
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb == null)
         {
@@ -298,5 +341,10 @@ private void HandleObjectAttraction()
         }
         rb.isKinematic = false;
         isDropping = false;
+
+        Quad1.SetActive(true);
+        Quad2.SetActive(false);
+        Quad3.SetActive(false);
+        
     }
 }

@@ -1,4 +1,7 @@
-public class TaskLog 
+using System;
+using UnityEngine;
+
+public class TaskLog : MonoBehaviour
 {
     private int errorCount = 0;
 
@@ -7,6 +10,7 @@ public class TaskLog
 
     private string objectName;
 
+    // Constructor
     public TaskLog(float startTimestamp, string objectName)
     {
         this.startTimestamp = startTimestamp;
